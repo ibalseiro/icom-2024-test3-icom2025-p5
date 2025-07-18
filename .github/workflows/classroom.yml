@@ -1,0 +1,97 @@
+name: Autograding Tests
+on:
+  - push
+  - workflow_dispatch
+  - repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Permisos de script
+      run: chmod +x tests.sh
+
+    - name: Run tests_ej1
+      uses: classroom-resources/autograding-io-grader@v1
+      id: tests-ej1
+      with:
+        test-name: Ejercicio 1
+        command: "./tests.sh 1"
+        comparison-method: exit-code
+        timeout: 20
+
+    - name: Run tests_ej2
+      uses: classroom-resources/autograding-io-grader@v1
+      id: tests-ej2
+      with:
+        test-name: Ejercicio 2
+        command: "./tests.sh 2"
+        comparison-method: exit-code
+        timeout: 20
+
+    - name: Run tests_ej3
+      uses: classroom-resources/autograding-io-grader@v1
+      id: tests-ej3
+      with:
+        test-name: Ejercicio 3
+        command: "./tests.sh 3"
+        comparison-method: exit-code
+        timeout: 20
+  
+    - name: Run tests_ej4
+      uses: classroom-resources/autograding-io-grader@v1
+      id: tests-ej4
+      with:
+        test-name: Ejercicio 4
+        command: "./tests.sh 4"
+        comparison-method: exit-code
+        timeout: 20
+
+    - name: Run tests_ej7
+      uses: classroom-resources/autograding-io-grader@v1
+      id: tests-ej7
+      with:
+        test-name: Ejercicio 7
+        command: "./tests.sh 7"
+        comparison-method: exit-code
+        timeout: 20
+
+    - name: Run tests_ej8
+      uses: classroom-resources/autograding-io-grader@v1
+      id: tests-ej9
+      with:
+        test-name: Ejercicio 9
+        command: "./tests.sh 9"
+        comparison-method: exit-code
+        timeout: 20
+
+    - name: Run tests_ej9
+      uses: classroom-resources/autograding-io-grader@v1
+      id: tests-ej9
+      with:
+        test-name: Ejercicio 9
+        command: "./tests.sh 9"
+        comparison-method: exit-code
+        timeout: 20
+
+    - name: Run tests_ej10
+      uses: classroom-resources/autograding-io-grader@v1
+      id: tests-ej10
+      with:
+        test-name: Ejercicio 10
+        command: "./tests.sh 10"
+        comparison-method: exit-code
+        timeout: 20
+
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      with:
+        runners: tests-ej1,tests-ej2,tests-ej3
